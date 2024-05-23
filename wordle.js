@@ -35,39 +35,66 @@ async function getWord() {
     function input() {
         allBoxes.forEach(box => box.setAttribute('tabindex', '0')); // Make each box focusable
 
-        document.addEventListener('keydown', function (e) {
-            e.preventDefault(); // Prevent default key behavior
+        document.addEventListener('keydown', handleKeyInput);
 
-            // Handle current row and box index
-            const boxIndex = currentRow * 5 + currentIndex;
-
-            if (e.key === 'Backspace') {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    guess.pop();
-                    allBoxes[boxIndex - 1].textContent = ''; // Clear content of previous box
-                    allBoxes[boxIndex - 1].focus(); // Focus the previous box
-                }
-            } else if (e.key === 'Enter') {
-                if (guess.length === 5) {
-                    submitAnswer();
-                }
-            } else if (validKeys.includes(e.key)) {
-                if (currentIndex < 5) {
-                    allBoxes[boxIndex].textContent = e.key.toUpperCase(); // Set text content to pressed key
-                    guess.push(e.key.toLowerCase());
-                    currentIndex++;
-                    if (currentIndex < 5) {
-                        allBoxes[boxIndex + 1].focus(); // Focus the next box
-                    }
-                }
-            }
+        // Add touch event listeners for mobile
+        allBoxes.forEach(box => {
+            box.addEventListener('touchstart', handleTouchInput);
         });
 
         // Set focus to the first box initially
         if (currentIndex === 0) {
             allBoxes[0].focus();
             allBoxes.forEach(box => box.classList.remove('reset-game'))
+        }
+    }
+
+    function handleKeyInput(e) {
+        e.preventDefault(); // Prevent default key behavior
+
+        // Handle current row and box index
+        const boxIndex = currentRow * 5 + currentIndex;
+
+        if (e.key === 'Backspace') {
+            if (currentIndex > 0) {
+                currentIndex--;
+                guess.pop();
+                allBoxes[boxIndex - 1].textContent = ''; // Clear content of previous box
+                allBoxes[boxIndex - 1].focus(); // Focus the previous box
+            }
+        } else if (e.key === 'Enter') {
+            if (guess.length === 5) {
+                submitAnswer();
+            }
+        } else if (validKeys.includes(e.key)) {
+            if (currentIndex < 5) {
+                allBoxes[boxIndex].textContent = e.key.toUpperCase(); // Set text content to pressed key
+                guess.push(e.key.toLowerCase());
+                currentIndex++;
+                if (currentIndex < 5) {
+                    allBoxes[boxIndex + 1].focus(); // Focus the next box
+                }
+            }
+        }
+    }
+
+    function handleTouchInput(e) {
+        e.preventDefault(); // Prevent default touch behavior
+
+        // Handle current row and box index
+        const boxIndex = currentRow * 5 + currentIndex;
+
+        // Show a prompt to enter the character
+        const char = prompt('Enter a letter:');
+        if (char && validKeys.includes(char)) {
+            if (currentIndex < 5) {
+                allBoxes[boxIndex].textContent = char.toUpperCase(); // Set text content to entered character
+                guess.push(char.toLowerCase());
+                currentIndex++;
+                if (currentIndex < 5) {
+                    allBoxes[boxIndex + 1].focus(); // Focus the next box
+                }
+            }
         }
     }
     const endHeading = document.querySelector('h2');
