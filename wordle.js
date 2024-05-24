@@ -68,6 +68,7 @@ async function getWord() {
                 guess.pop();
                 allBoxes[boxIndex - 1].textContent = ''; // Clear content of previous box
                 allBoxes[boxIndex - 1].focus(); // Focus the previous box
+                endHeading.innerHTML = 'Type any 5-letter word below & press Enter!'
             }
         } else if (e.key === 'Enter') {
             if (guess.length === 5) {
