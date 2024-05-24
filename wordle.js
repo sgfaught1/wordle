@@ -109,7 +109,7 @@ async function getWord() {
             const solutionFrequency = {};
             const guessFrequency = {};
 
-            endHeading.innerHTML = 'Type any 5-letter word below & press Enter!'
+            endHeading.innerHTML = 'Type any 5-letter word below & press Enter'
 
 
             // Build frequency map for the solution
