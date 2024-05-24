@@ -78,7 +78,7 @@ async function getWord() {
         }
     }
 
-    f   function handleTouchInput(e) {
+      function handleTouchInput(e) {
         e.preventDefault(); // Prevent default touch behavior
 
         // Focus the hidden input to bring up the keyboard
