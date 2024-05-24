@@ -87,6 +87,25 @@ h4 {
     border-radius: 3px; /* Optional: make the edges rounded */
 }
 
+#key {
+    font-size: 1.5em;
+    text-align: center;
+    position: relative;
+    top: 5px;
+    color:  #736868;
+    right: 195px;
+}
+
+#key:hover {
+    cursor: pointer;
+}
+
+#legend {
+    position: relative;
+    left: 770px;
+    color:  #736868;
+}
+
 #reset {
     height: 68px;
     width: 120px;
@@ -148,7 +167,11 @@ h4 {
         position: relative;
         bottom: 3em;
     }
-    
+
+    #key {
+        visibility: hidden;
+    }
+
     #legend {
         font-size: 1.5em;
         position: relative;

@@ -36,6 +36,7 @@ async function getWord() {
 
     $(key).click(function() {
     $(legend).slideToggle();
+    $(this).text() === 'Key (+)' ? $(this).text('Key (-)') : $(this).text('Key (+)')
     })
 
     function input() {
