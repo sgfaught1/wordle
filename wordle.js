@@ -29,8 +29,14 @@ async function getWord() {
     let guess = [];
     let currentIndex = 0;
     let currentRow = 0;
-
+    const endHeading = document.querySelector('h2');
     const resetBtn = document.querySelector('#reset');
+    const key = document.querySelector('#key')
+    const legend = document.querySelector('#legend')
+
+    $(key).click(function() {
+    $(legend).slideToggle();
+    })
 
     function input() {
         allBoxes.forEach(box => box.setAttribute('tabindex', '0')); // Make each box focusable
@@ -78,7 +84,7 @@ async function getWord() {
         }
     }
 
-      function handleTouchInput(e) {
+    function handleTouchInput(e) {
         e.preventDefault(); // Prevent default touch behavior
 
         // Focus the hidden input to bring up the keyboard
@@ -104,7 +110,7 @@ async function getWord() {
             }
         });
     }
-    const endHeading = document.querySelector('h2');
+
     async function submitAnswer() {
         try {
             let answer = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + guess.join(''))
