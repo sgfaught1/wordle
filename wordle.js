@@ -78,24 +78,31 @@ async function getWord() {
         }
     }
 
-    function handleTouchInput(e) {
+    f   function handleTouchInput(e) {
         e.preventDefault(); // Prevent default touch behavior
 
-        // Handle current row and box index
-        const boxIndex = currentRow * 5 + currentIndex;
+        // Focus the hidden input to bring up the keyboard
+        hiddenInput.focus();
 
-        // Show a prompt to enter the character
-        const char = prompt('Enter a letter:');
-        if (char && validKeys.includes(char)) {
-            if (currentIndex < 5) {
-                allBoxes[boxIndex].textContent = char.toUpperCase(); // Set text content to entered character
-                guess.push(char.toLowerCase());
-                currentIndex++;
+        // Listen for input events on the hidden input
+        hiddenInput.addEventListener('input', () => {
+            const char = hiddenInput.value;
+            hiddenInput.value = ''; // Clear the input value
+
+            if (char && validKeys.includes(char)) {
+                // Handle current row and box index
+                const boxIndex = currentRow * 5 + currentIndex;
+
                 if (currentIndex < 5) {
-                    allBoxes[boxIndex + 1].focus(); // Focus the next box
+                    allBoxes[boxIndex].textContent = char.toUpperCase(); // Set text content to entered character
+                    guess.push(char.toLowerCase());
+                    currentIndex++;
+                    if (currentIndex < 5) {
+                        allBoxes[boxIndex + 1].focus(); // Focus the next box
+                    }
                 }
             }
-        }
+        });
     }
     const endHeading = document.querySelector('h2');
     async function submitAnswer() {
